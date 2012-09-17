@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
 
   validates :username, :email, :presence => true, :uniqueness => true
   validates :email, :format => { :with => /@/ }
+
+  def self.authenticate(username, password)
+      find_by_username(username).try(:authenticate, password)
+  end
 end
